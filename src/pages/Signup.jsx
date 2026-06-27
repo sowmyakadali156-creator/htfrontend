@@ -23,6 +23,11 @@ function Signup() {
   const signupUser = async () => {
     setMessage("");
 
+    if (!form.name || !form.email || !form.password) {
+      alert("Please fill all fields");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "https://habittracker-of6r.onrender.com/api/auth/signup",
@@ -33,7 +38,7 @@ function Signup() {
       alert(response.data.message);
 
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 800);
     } catch (error) {
       console.log("SIGNUP FRONTEND ERROR:", error);
@@ -82,7 +87,8 @@ function Signup() {
         {message && <p>{message}</p>}
 
         <p>Already have an account?</p>
-        <Link to="/">Login</Link>
+
+        <Link to="/login">Login</Link>
       </div>
     </div>
   );
