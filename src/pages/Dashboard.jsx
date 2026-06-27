@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function Dashboard() {
   const [habits, setHabits] = useState([]);
@@ -287,6 +288,7 @@ function Dashboard() {
           })}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

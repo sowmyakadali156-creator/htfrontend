@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/habit-logo.png";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
@@ -88,6 +89,7 @@ function Home() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

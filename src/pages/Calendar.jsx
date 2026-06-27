@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function Calendar() {
   const [habits, setHabits] = useState([]);
@@ -147,6 +148,7 @@ function Calendar() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

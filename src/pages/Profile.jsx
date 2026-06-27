@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-
+import Footer from "../components/Footer";
 function Profile() {
   const [profile, setProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -167,6 +167,7 @@ function Profile() {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

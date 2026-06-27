@@ -1251,6 +1251,43 @@ textarea {
   object-fit: contain;
 }
 
+
 .navbar-brand h2 {
   margin: 0;
+}
+.footer {
+  margin-top: 40px;
+  padding: 22px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid rgba(124, 58, 237, 0.15);
+  color: #5b5b7a;
+  font-size: 14px;
+  justify-content: center;
+
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+.footer a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  color: #ec4899;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
 }
