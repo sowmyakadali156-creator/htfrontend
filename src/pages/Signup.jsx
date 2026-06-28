@@ -44,7 +44,7 @@ function Signup() {
         }
       );
 
-      setMessage("Signup successful! Redirecting to login...");
+      setMessage("Signup successful!");
       setMessageType("success");
 
       setTimeout(() => {
