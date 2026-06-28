@@ -10,6 +10,10 @@ function Login() {
     password: "",
   });
 
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -18,19 +22,45 @@ function Login() {
   };
 
   const loginUser = async () => {
+    setMessage("");
+    setMessageType("");
+
+    if (!form.email.trim() || !form.password.trim()) {
+      setMessage("Please enter email and password.");
+      setMessageType("error");
+      return;
+    }
+
     try {
+      setLoading(true);
+
       const response = await axios.post(
         "https://habittracker-of6r.onrender.com/api/auth/login",
-        form
+        {
+          email: form.email.trim(),
+          password: form.password,
+        }
       );
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      alert(response.data.message);
-      navigate("/dashboard");
+      setMessage("Login successful! Opening dashboard...");
+      setMessageType("success");
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 700);
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Login failed. Please try again.";
+
+      setMessage(errorMessage);
+      setMessageType("error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,7 +86,21 @@ function Login() {
           onChange={handleChange}
         />
 
-        <button onClick={loginUser}>Login</button>
+        <button onClick={loginUser} disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
+
+        {message && (
+          <p
+            className={
+              messageType === "success"
+                ? "form-message success-message"
+                : "form-message error-message"
+            }
+          >
+            {message}
+          </p>
+        )}
 
         <p>Don't have an account?</p>
         <Link to="/signup">Signup</Link>

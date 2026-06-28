@@ -1291,3 +1291,17 @@ textarea {
     text-align: center;
   }
 }
+.form-message {
+  margin: 14px 0 4px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.success-message {
+  color: #16a34a;
+}
+
+.error-message {
+  color: #dc2626;
+}

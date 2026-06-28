@@ -12,6 +12,8 @@ function Signup() {
   });
 
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({
@@ -22,34 +24,42 @@ function Signup() {
 
   const signupUser = async () => {
     setMessage("");
+    setMessageType("");
 
-    if (!form.name || !form.email || !form.password) {
-      alert("Please fill all fields");
+    if (!form.name.trim() || !form.email.trim() || !form.password.trim()) {
+      setMessage("Please fill all fields.");
+      setMessageType("error");
       return;
     }
 
     try {
-      const response = await axios.post(
+      setLoading(true);
+
+      await axios.post(
         "https://habittracker-of6r.onrender.com/api/auth/signup",
-        form
+        {
+          name: form.name.trim(),
+          email: form.email.trim(),
+          password: form.password,
+        }
       );
 
-      setMessage(response.data.message);
-      alert(response.data.message);
+      setMessage("Signup successful! Redirecting to login...");
+      setMessageType("success");
 
       setTimeout(() => {
         navigate("/login");
-      }, 800);
+      }, 1200);
     } catch (error) {
-      console.log("SIGNUP FRONTEND ERROR:", error);
-
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
-        "Signup failed";
+        "Signup failed. Please try again.";
 
       setMessage(errorMessage);
-      alert(errorMessage);
+      setMessageType("error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,12 +92,23 @@ function Signup() {
           onChange={handleChange}
         />
 
-        <button onClick={signupUser}>Signup</button>
+        <button onClick={signupUser} disabled={loading}>
+          {loading ? "Creating Account..." : "Signup"}
+        </button>
 
-        {message && <p>{message}</p>}
+        {message && (
+          <p
+            className={
+              messageType === "success"
+                ? "form-message success-message"
+                : "form-message error-message"
+            }
+          >
+            {message}
+          </p>
+        )}
 
         <p>Already have an account?</p>
-
         <Link to="/login">Login</Link>
       </div>
     </div>
